@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -e
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Source the .env file
+if [ -f "${SCRIPT_DIR}/../.env" ]; then
+  set -o allexport
+  source "${SCRIPT_DIR}/../.env"
+  set +o allexport
+fi
+
+echo "MONITORED: $MONITORED"
+
+# Function to split and iterate over colon-separated directories
+split_and_process_directories() {
+  IFS=':' read -ra DIRS <<< "$MONITORED"
+  for dir in "${DIRS[@]}"; do
+    echo "Monitoring directory: $dir"
+    # Add your processing logic here
+    ${SCRIPT_DIR}/../../$dir/scripts/run.sh
+  done
+}
+
+# Call the function
+split_and_process_directories
