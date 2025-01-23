@@ -1,0 +1,44 @@
+{
+  "name": "@mjt-services/service-monitor-2025",
+  "version": "2025.1.15-0945",
+  "sideEffects": false,
+  "description": "service monitor",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "docs": "typedoc src/index.ts",
+    "build-docs": "pnpm run build && pnpm run docs",
+    "changelog": "./scripts/changes.sh > CHANGELOG.md",
+    "changelog-version": "pnpm run changelog && ./scripts/version.sh",
+    "publish": "pnpm run build-docs && pnpm run changelog-version",
+    "start": "deno run --allow-net --allow-env --allow-read ./dist/index.js",
+    "build": "pnpm run build-rollup && pnpm run build-docker",
+    "build-rollup": "rollup -c",
+    "build-docker": "scripts/build.sh",
+    "watch": "rollup -c --watch",
+    "check": "tsc --noEmit -w"
+  },
+  "keywords": [],
+  "author": "Matt Taylor (https://mjt.dev)",
+  "license": "MIT",
+  "dependencies": {
+    "@mjt-engine/assert": "github:mjt-engine/assert",
+    "@mjt-engine/message": "github:mjt-engine/message",
+    "@mjt-engine/object": "github:mjt-engine/object",
+    "commander": "^12.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "rollup": "^4.30.1",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup-plugin-url-import": "^0.4.0",
+    "typedoc": "^0.27.6",
+    "typescript": "^5.7.3"
+  }
+}
