@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -e
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Optional: Source .env for other config
+if [ -f "${SCRIPT_DIR}/../.env" ]; then
+  set -o allexport
+  source "${SCRIPT_DIR}/../.env"
+  set +o allexport
+fi
+
+# Get the command to run
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 <command>"
+  echo "Example: $0 'git status'"
+  exit 1
+fi
+
+COMMAND="$@"
+
+# Load monitored services from services.txt
+SERVICES_FILE="${SCRIPT_DIR}/../services.txt"
+if [ ! -f "$SERVICES_FILE" ]; then
+  echo "Error: services.txt not found at $SERVICES_FILE"
+  exit 1
+fi
+
+# Read each line as a service name (ignore comments and empty lines)
+mapfile -t DIRS < <(grep -vE '^\s*#' "$SERVICES_FILE" | grep -vE '^\s*$')
+
+for dir in "${DIRS[@]}"; do
+  TARGET_DIR="${SCRIPT_DIR}/../../$dir"
+  echo "Entering: $dir"
+  (cd "$TARGET_DIR" && TARGET="$dir" eval "$COMMAND")
+done

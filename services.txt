@@ -1,0 +1,13 @@
+api-service-2025
+asr-service-backend-whisper-2025
+asr-service-frontend-2025
+daimon-service-2025
+data-service-2025
+data-service-backend-qdrant-2025
+imagegen-service-backend-comfyui-2025
+imagegen-service-frontend-2025
+mq-service-2025
+textgen-service-2025
+tunnel-service-2025
+vastai-service-2025
+webclient-service-2025

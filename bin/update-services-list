@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BASE_DIR="${SCRIPT_DIR}/../.."
+OUTPUT_FILE="${SCRIPT_DIR}/../services.txt"
+
+# Find directories matching pattern and write to services.txt
+find "$BASE_DIR" -maxdepth 1 -mindepth 1 -type d -name '*-service-*' -printf '%f\n' | sort > "$OUTPUT_FILE"
+
+echo "Wrote $(wc -l < "$OUTPUT_FILE") entries to $OUTPUT_FILE"
