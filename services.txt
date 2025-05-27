@@ -5,6 +5,7 @@ daimon-service-2025
 data-service-2025
 data-service-backend-qdrant-2025
 imagegen-service-backend-comfyui-2025
+imagegen-service-backend-webui-forge-2025
 imagegen-service-frontend-2025
 mq-service-2025
 textgen-service-2025
